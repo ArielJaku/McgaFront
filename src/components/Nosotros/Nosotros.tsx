@@ -1,8 +1,11 @@
-import React from 'react'
+import './Nosotros.css'
 
 const Nosotros = () => {
   return (
-    <div>Nosotros</div>
+    <div className='nos'>
+      ESTE ES UN PROYECTO PARA LA MATERIA MCGA DE LA UNIVERSIDAD ABIERTA INTERAMERICANA.
+      ECHO POR ALUMNOS DE LA MISMA.
+    </div>
   )
 }
 

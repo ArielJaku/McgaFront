@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from 'react-router';
 
@@ -8,6 +9,23 @@ const [tipo, setTipo] = useState("");
 const [precio, setPrecio] = useState("");
 const [stock, setStock] = useState("");
 const navigate = useNavigate();
+
+function validarSesion (){
+  const tieneToken = localStorage.getItem('token');
+  if(tieneToken === null){
+    window.location.href = '/';
+  }else{
+    const log = getAuth();
+    log.currentUser?.getIdToken().then((res : any)=>{
+      if(res !== localStorage.getItem('token')){
+        localStorage.removeItem('token')
+        window.location.href = '/'
+      }
+    })
+  }
+}
+
+validarSesion();
 
 let jsonData = {
             "nombre": nombre, 

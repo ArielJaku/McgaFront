@@ -3,6 +3,7 @@ import Verdura from '../../models/verdura'
 import './ListaModificable.css'
 import { useNavigate } from 'react-router';
 import verdura from '../../models/verdura';
+import { getAuth } from 'firebase/auth';
 
 const ListaModificable = () => {
 const navigate = useNavigate();
@@ -15,6 +16,23 @@ const [stock, setStock] = useState("");
 const [idModificar, setIdModificar] = useState("");
 const [idBorrar, setIdBorrar] = useState("");
 const [abrirModal, setAbrirModal] = useState(false);
+
+function validarSesion (){
+  const tieneToken = localStorage.getItem('token');
+  if(tieneToken === null){
+    window.location.href = '/';
+  }else{
+    const log = getAuth();
+    log.currentUser?.getIdToken().then((res : any)=>{
+      if(res !== localStorage.getItem('token')){
+        localStorage.removeItem('token')
+        window.location.href = '/'
+      }
+    })
+  }
+}
+
+validarSesion();
 
 let jsonData = {
   "nombre": nombre, 
